@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitium | Hospital Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            background: url("{{ url_for('static', filename='images/backgroundImage1.png') }}") center/cover no-repeat fixed;
+        }
+        main {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+        }
+        .overlay-bg {
+            backdrop-filter: blur(1px);
+            /* padding-bottom: 30px; */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar shadow p-2 bg-body rounded" style="background:#ffffff; border-bottom: 3px solid grey;">
+        <div class="container">
+            <a href="/" class="navbar-brand fw-bold" style="font-size: 28px;">Hospitium</a>
+            <div class="d-flex ms-auto">
+                {% if not session.get('username') %}
+                    <a href="{{ url_for('registration') }}" class="btn nav-btn btn-register btn-outline-dark m-2">Register</a>
+                    <a href="{{ url_for('login') }}" class="btn nav-btn btn-login btn-outline-dark m-2">Login</a>
+                {% elif session.get('role') == 'patient' %}
+                    <a href="{{ url_for('edit_profile') }}" class="btn nav-btn btn-outline-dark m-2">Edit Profile</a>
+                    <a href="{{ url_for('logout') }}" class="btn nav-btn btn-logout btn-outline-dark m-2">Logout</a>
+                {% elif session.get('role') == 'doctor' %}
+                    <a href="{{ url_for('doctor_patients') }}" class="btn nav-btn btn-history btn-outline-dark m-2">My Patients</a>
+                    <a href="{{ url_for('logout') }}" class="btn nav-btn btn-logout btn-outline-dark m-2">Logout</a>
+                {% elif session.get('role') == 'admin' %}
+                    <a href="{{ url_for('logout') }}" class="btn nav-btn btn-logout btn-outline-dark m-2">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main class="overlay-bg">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="bg-secondary text-light text-center py-3">
+        <p class="mb-0">Copyright 2025 © Hospitium Private Limited.<br> All Rights Reserved</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
