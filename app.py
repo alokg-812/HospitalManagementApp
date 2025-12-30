@@ -28,3 +28,10 @@ class User(db.model):
     doctor_appointments = db.relationship("Appointment",foreign_keys="Appointment.doctor_id",back_populates="doctor")
     patient_appointments = db.relationship("Appointment",foreign_keys="Appointment.patient_id",back_populates="patient")
     is_active = db.Column(db.Boolean, default=True)
+
+class Department(db.Model):
+    __tablename__ = 'departments'
+    id = db.Column(db.Integer, primary_key=True)
+    department_name = db.Column(db.String(100), unique=True, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    doctors = db.relationship("User", back_populates='department')
