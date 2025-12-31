@@ -35,3 +35,15 @@ class Department(db.Model):
     department_name = db.Column(db.String(100), unique=True, nullable=False)
     description = db.Column(db.Text, nullable=False)
     doctors = db.relationship("User", back_populates='department')
+
+class Appointment(db.Model):
+    __tablename__ = 'appointments'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(20))
+    time = db.Column(db.String(20))
+    status = db.Column(db.String(20), default='Booked')  # Booked/Cancelled/Completed
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    patient_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    patient = db.relationship("User", foreign_keys=[patient_id], back_populates="patient_appointments")
+    doctor = db.relationship("User", foreign_keys=[doctor_id], back_populates="doctor_appointments")
