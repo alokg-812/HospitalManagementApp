@@ -58,3 +58,10 @@ class Treatment(db.Model):
     appointment_id = db.Column(db.Integer, db.ForeignKey('appointments.id'), nullable=False)
     appointment = db.relationship("Appointment", back_populates="treatment")
     medicines = db.relationship("Medicine", back_populates="treatment", cascade="all, delete-orphan")
+
+class Medicine(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    dosage = db.Column(db.String(50))
+    treatment_id = db.Column(db.Integer, db.ForeignKey('treatments.id'))
+    treatment = db.relationship("Treatment", back_populates="medicines")
