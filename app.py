@@ -47,3 +47,14 @@ class Appointment(db.Model):
     doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     patient = db.relationship("User", foreign_keys=[patient_id], back_populates="patient_appointments")
     doctor = db.relationship("User", foreign_keys=[doctor_id], back_populates="doctor_appointments")
+
+class Treatment(db.Model):
+    __tablename__ = 'treatments'
+    id = db.Column(db.Integer, primary_key=True)
+    diagnosis = db.Column(db.Text)
+    prescription = db.Column(db.Text)
+    notes = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    appointment_id = db.Column(db.Integer, db.ForeignKey('appointments.id'), nullable=False)
+    appointment = db.relationship("Appointment", back_populates="treatment")
+    medicines = db.relationship("Medicine", back_populates="treatment", cascade="all, delete-orphan")
