@@ -65,3 +65,7 @@ class Medicine(db.Model):
     dosage = db.Column(db.String(50))
     treatment_id = db.Column(db.Integer, db.ForeignKey('treatments.id'))
     treatment = db.relationship("Treatment", back_populates="medicines")
+
+@app.route('/')
+def index():
+    return render_template('index.html')
