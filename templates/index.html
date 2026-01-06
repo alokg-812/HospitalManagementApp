@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<main class="overlay-bg">
+    <div class="hero-section d-flex align-items-center justify-content-center">
+        <div class="hero-text text-center text-light p-4 rounded">
+            <h1 class="fw-bold mb-3">Welcome to Hospitium</h1>
+            <p style="font-size: 20px; line-height: 1.6;">
+                Bored of calling hospitals again and again just to book an appointment?<br>
+                Say hello to <strong>Hospitium</strong> — your one-stop smart solution for managing doctor appointments.<br><br>
+                Whether you’re a <strong>patient</strong> looking for a hassle-free booking experience,  
+                or a <strong>doctor</strong> tired of manually scheduling slots —<br>
+                Hospitium simplifies everything for you.
+            </p>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
