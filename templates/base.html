@@ -1,23 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hospitium | Hospital Management System</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
     <style>
         html, body {
             height: 100%;
             margin: 0;
         }
+
         body {
             display: flex;
             flex-direction: column;
             background: url("{{ url_for('static', filename='images/backgroundImage1.png') }}") center/cover no-repeat fixed;
         }
+
         main {
             flex: 1 0 auto;
         }
+
         footer {
             flex-shrink: 0;
         }
@@ -25,6 +32,8 @@
             backdrop-filter: blur(1px);
             /* padding-bottom: 30px; */
         }
+
+
     </style>
 </head>
 
