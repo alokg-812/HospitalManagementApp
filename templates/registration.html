@@ -1,11 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+<div class="col-md-7 w-50">
+    <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Patient Registration</h4>
+    </div>
+    <div class="card-body">
+        <form action="{{ url_for('registration') }}" method="post">
+        <div class="row">
+            <div class="mb-3">
+            <label class="form-label"><strong>Full name</strong></label>
+            <input class="form-control" name="username" required placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+            <label class="form-label"><strong>Email</strong></label>
+            <input class="form-control" name="email" type="email" required placeholder="Enter your email">
+            </div>
+            <div>
+            <label class="form-label"><strong>Password</strong></label>
+            <input class="form-control" name="password" type="password" required placeholder="Enter your password">
+            </div>
+        </div>
+        <button class="btn btn-success text-center w-100 mt-4">Register</button>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}
