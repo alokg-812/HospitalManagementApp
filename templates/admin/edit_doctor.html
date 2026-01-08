@@ -1,11 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+    <label>Name</label>
+    <!-- <input class="form-control" name="name" value="{{ dr.username }}"> -->
+    <label>Email</label>
+    <!-- <input class="form-control" name="email" value="{{ dr.email }}"> -->
+    <label>Qualification</label>
+    <!-- <input class="form-control" name="qualification" value="{{ dr.qualification }}"> -->
+    <label>Experience (years)</label>
+    <!-- <input class="form-control" name="experience_years" value="{{ dr.experience_years }}"> -->
+    <label>Department</label>
+    <select name="department_id" class="form-control">
+        <!-- {% for dep in departments %} -->
+        <!-- <option value="{{ dep.id }}" {% if dr.department_id == dep.id %}selected{% endif %}> -->
+            <!-- {{ dep.department_name }} -->
+        <!-- </option> -->
+        <!-- {% endfor %} -->
+    </select>
+
+    <button class="btn btn-primary mt-3">Save Changes</button>
+</form>
+
+{% endblock %}
