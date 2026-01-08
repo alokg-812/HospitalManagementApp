@@ -103,3 +103,40 @@ def registration():
         db.session.commit()
         return render_template('login.html')
     return render_template('registration.html')
+
+@app.route('/login', methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        email = request.form["login_email"]
+        password = request.form["login_password"]
+        print(email, password) #logging to check the function
+        user = User.query.filter_by(email=email).first()
+        if user and user.password==password:
+            session['email'] = user.email
+            session['user_id'] = user.id
+            session['role'] = user.role
+            session['username'] = user.username
+            
+            if (user.role=='patient'):
+                return redirect(url_for('patient_dashboard'))
+            elif(user.role=='doctor'):
+                return redirect(url_for('doctor_dashboard'))
+            elif(user.role=='admin'):
+                return redirect(url_for('admin_dashboard'))
+    return render_template('login.html')
+
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+        existing_admin = User.query.filter_by(username='admin').first()
+        if not existing_admin:
+            admin_db = User(
+                username='admin',
+                password='adminPass',
+                email='admin@local.com',
+                role='admin'
+            )
+            db.session.add(admin_db)
+            db.session.commit()
+    app.run(debug=True)
