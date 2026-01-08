@@ -1,11 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<!-- {% for dr in doctor_array %}
+{{ dr.username }}
+{% endfor %} -->
+
+<span>
+  {% if session.get('role') %}
+    <span class="me-3 fw-semibold text-light navbar-brand fw-bold">
+      {% if session.get('role') == 'admin' %}
+        <h3 class="text-center">Welcome Admin!</h3>
+      {% endif %}
+    </span>    
+  {% endif %}
+</span>
+<h1 class="text-white p-5 text-center">Admin Dashboard</h1>
+<div class="row d-flex justify-content-around text-center">
+    <div class="col-md-4">
+        <div class="card text-white mb-3" style="background:#0d6efd;">
+            <div class="card-body">
+                <h5>Total Doctors</h5>
+                <h2>{{ total_doctors }}</h2>
+            </div>
+                <a class="btn btn-primary" style="background-color: #198754;" href="{{ url_for('doctor_list') }}">Manage Doctors</a>
+
+          </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white mb-3" style="background:#198754;">
+        <div class="card-body">
+          <h5>Total Patients</h5>
+          <h2>{{ total_patients }}</h2>
+        </div>
+          <a class="btn btn-secondary" style="background-color: #fd7e14;" href="{{ url_for('patient_list')}}">Manage Patients</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white mb-3" style="background:#fd7e14;">
+        <div class="card-body">
+          <h5>Total Appointments</h5>
+          <h2>{{ total_appointments }}</h2>
+        </div>
+          <a class="btn btn-primary">View Appointments</a>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
