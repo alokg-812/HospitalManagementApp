@@ -125,6 +125,13 @@ def login():
                 return redirect(url_for('admin_dashboard'))
     return render_template('login.html')
 
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    doctor_array, total_doctors = get_doctors()
+    patient_array_array, total_patients = get_patients()
+    # print(total_doctors, total_patients)
+    return render_template('admin/admin_dashboard.html', doctor_array=doctor_array, total_doctors=total_doctors, total_patients=total_patients)
+
 
 if __name__ == '__main__':
     with app.app_context():
