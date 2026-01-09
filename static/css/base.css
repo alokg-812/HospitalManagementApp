@@ -1,0 +1,43 @@
+body{
+    background-color: #77797d;
+    /* background-color: red; */
+    font-family: 'Segoe UI', sans-serif;
+}
+.navbar-brand {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.btn-register:hover {
+    background-color: #004a99;
+    color: white;
+    border: 2px solid #0066cc;
+}
+
+.btn-register {
+    background-color: #e6f2ff;
+    color: #004a99;
+    border: 2px solid #0066cc;
+
+}
+
+.btn-login:hover {
+    background-color: #004a99;
+    color: white;
+    border: 2px solid #0066cc;
+}
+
+.btn-login {
+    margin-left: 10px;
+    background-color: #e6f2ff;
+    color: #004a99;
+    border: 2px solid #0066cc;
+
+}
+footer {
+    margin-top: 60px;
+    background: #004c99;
+    color: #e8f1ff;
+}
+
