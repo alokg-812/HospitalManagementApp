@@ -145,6 +145,15 @@ def admin_dashboard():
     # print(total_doctors, total_patients)
     return render_template('admin/admin_dashboard.html', doctor_array=doctor_array, total_doctors=total_doctors, total_patients=total_patients)
 
+@app.route('/doctor_list')
+def doctor_list():
+    doctor_array, total_doctors = get_doctors()
+    return render_template('admin/doctor_list.html', doctor_array=doctor_array, total_doctors=total_doctors)
+
+@app.route('/patient_list')
+def patient_list():
+    patient_array, total_patients = get_patients()
+    return render_template('admin/patient_list.html', patient_array=patient_array, total_patients=total_patients)
 
 if __name__ == '__main__':
     with app.app_context():
