@@ -1,11 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+
+<div class="bg-light container mt-4 w-75 border rounded-3 pb-4 scroll-box">
+    <h4 class="mt-4">Upcoming Appointments</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped mt-2">
+            <thead class="table-dark">
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Patient Name</th>
+                    <th>Patient History</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if appointments %}
+                    {% for appt in appointments %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ appt.patient.username }}</td>
+                        <td><a href="{{ url_for('update_patient', appointment_id=appt.id) }}"class="btn btn-primary btn-sm">Completed</a></td>
+                        <td>{{ appt.date }}</td>
+                        <td>{{ appt.time }}</td>
+                        <td><a href="{{ url_for('cancel_appointment', appointment_id=appt.id) }}"class="btn btn-success btn-sm">mark as complete</a>
+                        <a href="{{ url_for('cancel_appointment', appointment_id=appt.id) }}"class="btn btn-danger btn-sm">View</a></td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No upcoming appointments.
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<div class="bg-light container mt-4 w-50 border rounded-3 p-3 scroll-box">
+    <h4 class="">Assigned Patients</h4>
+    <div class="card p-3">
+        {% for pat in assigned_patients %}
+            <div class="d-flex justify-content-between align-items-center p-2 border rounded mb-2">
+                <span class="fw-semibold">{{ pat.username }}</span>
+            </div>
+        {% endfor %}
+        <div class="text-end mt-3">
+        </div>
+    </div>
+</div>
+<div>
+    <a href="{{ url_for('doctor_availability') }}" id="button" class="btn btn-outline-success">Provide Availability</a>
+</div>
+
+<style>
+    #button{
+        margin-left: 780px;
+        margin-top: 25px;
+        background-color: lightgreen ;
+        color: black;
+    }
+    #button:hover{
+        background-color: yellow;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
