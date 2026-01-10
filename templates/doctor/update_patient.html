@@ -1,11 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Update Patient History</h3>
+    <p>
+        <strong>Patient Name:</strong> {{ patient.username }} <br>
+        <strong>Department:</strong> {{ department.name }}
+    </p>
+
+    <form action="{{ url_for('save_patient_history', appointment_id=appointment.id) }}" method="POST"
+          class="card p-4">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Visit Type</label>
+                <input type="text" name="visit_type" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Test Done</label>
+                <input type="text" name="test_done" class="form-control">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Diagnosis</label>
+            <input type="text" name="diagnosis" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Prescription</label>
+            <textarea name="prescription" class="form-control" rows="3"></textarea>
+        </div>
+        <label class="form-label">Medicines</label>
+        <div id="medicine-list">
+            <div class="input-group mb-2">
+                <input type="text" name="medicine_name[]" class="form-control" placeholder="Medicine Name">
+                <input type="text" name="medicine_dosage[]" class="form-control" placeholder="Dosage e.g., 1-0-1">
+                <button class="btn btn-danger remove-btn">X</button>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-primary mb-3" id="add-btn">Add Medicine</button>
+        <button type="submit" class="btn btn-success">save</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("add-btn").addEventListener("click", function() {
+        let box = `
+            <div class="input-group mb-2">
+                <input type="text" name="medicine_name[]" class="form-control" placeholder="Medicine Name">
+                <input type="text" name="medicine_dosage[]" class="form-control" placeholder="Dosage e.g., 1-0-1">
+                <button class="btn btn-danger remove-btn">X</button>
+            </div>`;
+        document.getElementById("medicine-list").insertAdjacentHTML('beforeend', box);
+    });
+    document.addEventListener("click", function(e) {
+        if (e.target.classList.contains("remove-btn")) {
+            e.preventDefault();
+            e.target.parentElement.remove();
+        }
+    });
+</script>
+
+{% endblock %}
