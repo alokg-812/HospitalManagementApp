@@ -1,11 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST" action="{{ url_for('save_availability') }}">
+    <div class="row text-light m-3">
+        <div class="col-md-3 p-2">
+            <a class="hoverr btn btn-secondary float-end border-black" href="{{ url_for('doctor_dashboard') }}">Back</a>
+        </div>
+        <div class="h3 col-md-6 p-2 text-center text-bg-success border rounded-3 w-50 text-light">Manage Your Availability</div>
+    </div>
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Date</th>
+                {% for slot in slots %}
+                    <th>{{ slot }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for day in upcoming_days %}
+            <tr>
+                <td><b>{{ day }}</b></td>
+                {% for slot in slots %}
+                {% set selected = availability_map.get((day, slot), False) %}
+                <td>
+                    <label class="slot-box" style="display:inline-block;width:100%; padding:10px; cursor:pointer; border-radius:6px; color:white;background-color: 
+                    {% if selected %}green
+                    {% else %}red
+                    {% endif %};">
+                        <input type="checkbox" name="{{ day }}||{{ slot }}" style="display:none"
+                               {% if selected %}checked{% endif %}
+                               onchange="this.parentElement.style.backgroundColor = this.checked ? 'green':'red';">
+                        {{ slot }}
+                    </label>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-primary px-5 py-2">Save Availability</button>
+    </div>
+
+</form>
+
+<style>
+.hoverr:hover{
+    background-color: white;
+    color: black;
+}
+.slot-box:hover {
+    opacity: 0.75;
+    background-color: yellow;
+}
+</style>
+
+{% endblock %}
