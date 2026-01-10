@@ -130,6 +130,14 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+def get_doctors():
+    doctors = User.query.filter(User.role=='doctor' and User.is_active == True).all()
+    return doctors, len(doctors)
+
+def get_patients():
+    patients = User.query.filter_by(role='patient').all()
+    return patients, len(patients)
+
 @app.route('/admin_dashboard')
 def admin_dashboard():
     doctor_array, total_doctors = get_doctors()
