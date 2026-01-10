@@ -125,6 +125,11 @@ def login():
                 return redirect(url_for('admin_dashboard'))
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
 @app.route('/admin_dashboard')
 def admin_dashboard():
     doctor_array, total_doctors = get_doctors()
