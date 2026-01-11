@@ -217,6 +217,13 @@ def edit_patient(patient_id):
         return redirect('/patient_list')
     return render_template('admin/edit_patient.html', patient=patient)
 
+@app.route('/delete_patient/<int:patient_id>')
+def delete_patient(patient_id):
+    patient = User.query.get_or_404(patient_id)
+    db.session.delete(patient)
+    db.session.commit()
+    return redirect('/patient_list')
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
