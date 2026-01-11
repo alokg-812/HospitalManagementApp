@@ -206,6 +206,16 @@ def create_doctor():
         return redirect(url_for('doctor_list'))
     return render_template('admin/create_doctor.html', departments=departments)
 
+@app.route('/edit_patient/<int:patient_id>', methods=['GET', 'POST'])
+def edit_patient(patient_id):
+    patient = User.query.get_or_404(patient_id)
+    if request.method == 'POST':
+        patient.name = request.form['name']
+        patient.email = request.form['email']
+        patient.phone = request.form['phone']
+        db.session.commit()
+        return redirect('/patient_list')
+    return render_template('admin/edit_patient.html', patient=patient)
 
 if __name__ == '__main__':
     with app.app_context():
