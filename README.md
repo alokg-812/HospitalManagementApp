@@ -1,2 +1,82 @@
-# Hospital-Management-App
-A web application that allows Admins, Doctors, and Patients to interact with the system based on their roles.
+# Hospitium - Hospital-Management-App
+> A web application that allows Admins, Doctors, and Patients to interact with the system based on their roles.
+> Built with a clean MVC architecture and Bootstrap UI
+
+## Project Overview
+
+Hospitium (Hospital Management System) is designed to streamline hospital workflows by enabling three major roles — **Admin**, **Doctor**, and **Patient** — each with their own dedicated dashboard and functionality.
+
+This project focuses on user authentication, appointment management, patient history tracking, and doctor availability scheduling, all within a simple, database-driven web interface.
+
+
+## Features by Role
+
+### Admin
+- Create and manage **Doctors** and **Departments**
+- View all registered **Patients** and **Doctors**
+- Monitor upcoming **Appointments**
+- Access **Patient medical history**
+- Assign doctors to departments
+
+### Doctor
+- View assigned **Appointments**
+- Mark appointments as **Completed** or **Cancelled**
+- Add **Diagnosis**, **Treatment**, and **Prescriptions**
+- View complete **Patient Medical History**
+- Manage and provide **Availability Schedule** (next 7 days)
+- User-friendly dashboard with Bootstrap UI
+
+### Patient
+- Register and log in 
+- Update **Profile** details (name, email, etc.)
+- View and search **Doctors by specialization**
+- Book, reschedule, or cancel **Appointments**
+- View upcoming and past **Appointments**
+- Access complete **Medical History**
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Backend Framework** | Flask (Python) |
+| **Frontend** | HTML5, CSS3, Bootstrap 5 |
+| **Database** | SQLite3 (via SQLAlchemy ORM) |
+| **Templating Engine** | Jinja2 |
+| **Version Control** | Git + GitHub |
+| **Virtual Environment** | venv (Python 3.x) |
+
+## Folder Structure
+```
+HOSPITALMANAGEMENTAPP/
+│
+├── 📄 app.py                    # Main Flask application
+├── 📄 models.py                 # Database models using SQLAlchemy
+│
+├── 📁 instance/
+│   └── 🗄️ hospital.db           # SQLite database file
+│
+├── 📁 static/
+│   ├── 🎨 css/                  # Custom CSS files
+│   └── 🖼️ images/               # Image assets
+│
+├── 📁 templates/
+│   ├── 👨‍💼 admin/              # Admin dashboards and forms
+│   ├── 👨‍⚕️ doctor/             # Doctor dashboards and forms
+│   ├── 🧑‍🤝‍🧑 patient/            # Patient dashboards and forms
+│   ├── 📄 base.html             # Common layout for all pages
+│   ├── 🏠 index.html            # Home/landing page
+│   ├── 🔐 login.html            # User login page
+│   └── ✍️ signup.html           # Registration page
+│
+├── 🐍 Venv/                     # Python virtual environment
+├── 📖 README.md                 # Project documentation
+└── 📋 requirements.txt          # Python dependencies
+```
+
+## Database Models
+
+- **User** → Base model (Admin / Doctor / Patient)
+- **Appointment** → Doctor-Patient booking
+- **PatientHistory** → Stores diagnosis, treatment, prescription details
+- **DoctorAvailability** → Tracks available slots for next 7 days
+- **Department** → Specializations (Cardiology, ENT, etc.)
