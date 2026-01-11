@@ -180,6 +180,11 @@ def activate_doctor(doctor_id):
     db.session.commit()
     return redirect(url_for('doctor_list'))
 
+@app.route('/create_doctor', methods=['GET', 'POST'])
+def create_doctor():
+    return render_template('admin/create_doctor.html', departments=departments)
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
