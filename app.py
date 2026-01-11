@@ -224,6 +224,13 @@ def delete_patient(patient_id):
     db.session.commit()
     return redirect('/patient_list')
 
+@app.route('/blacklist_patient/<int:patient_id>')
+def blacklist_patient(patient_id):
+    patient = User.query.get_or_404(patient_id)
+    patient.is_active = False
+    db.session.commit()
+    return redirect('/patient_list')
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
