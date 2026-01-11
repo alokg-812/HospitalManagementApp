@@ -155,6 +155,10 @@ def patient_list():
     patient_array, total_patients = get_patients()
     return render_template('admin/patient_list.html', patient_array=patient_array, total_patients=total_patients)
 
+@app.route('/admin/edit_doctor')
+def edit_doctor():
+    return render_template('admin/edit_doctor.html')
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
