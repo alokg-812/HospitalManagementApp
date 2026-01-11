@@ -182,6 +182,28 @@ def activate_doctor(doctor_id):
 
 @app.route('/create_doctor', methods=['GET', 'POST'])
 def create_doctor():
+    departments = Department.query.all()
+
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        qualification = request.form.get("qualifications")
+        experience_years = request.form.get("experience")
+        selected_dept = request.form.get("department_id")
+        if selected_dept == "new":
+            new_dept_name = request.form.get("new_department_name")
+            new_dept_description = request.form.get("new_department_description")
+            new_department = Department(department_name=new_dept_name,description=new_dept_description)
+            db.session.add(new_department)
+            db.session.commit()
+            department_id = new_department.id
+        else:
+            department_id = int(selected_dept)
+        new_doctor = User(username=name, email=email, password=password, role='doctor',department_id=department_id, qualification=qualification, experience_years=experience_years)
+        db.session.add(new_doctor)
+        db.session.commit()
+        return redirect(url_for('doctor_list'))
     return render_template('admin/create_doctor.html', departments=departments)
 
 
