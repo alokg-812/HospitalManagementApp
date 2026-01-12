@@ -1,11 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4 text-center">
+        <h2 class="text-success">Booking Confirmed!</h2><hr>
+        <p>Your appointment has been successfully booked.</p>
+
+        <h4 class="mt-3">Appointment Details</h4>
+        <div class="mt-3">
+            <p><strong>Doctor:</strong> Dr. {{ doctor.username }}</p>
+            <p><strong>Date:</strong> {{ appointment.date }}</p>
+            <p><strong>Time:</strong> {{ appointment.time }}</p>
+            <p><strong>Status:</strong> {{ appointment.status }}</p>
+        </div>
+        <a href="{{ url_for('patient_dashboard') }}" class="btn btn-primary mt-3">
+            Go to Dashboard
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
