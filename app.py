@@ -238,6 +238,11 @@ def activate_patient(patient_id):
     db.session.commit()
     return redirect('/patient_list')
 
+@app.route('/doctor_dashboard')
+def doctor_dashboard():
+    return render_template('doctor/doctor_dashboard.html',doctor=doctor,appointments=appointments,assigned_patients=assigned_patients)
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
