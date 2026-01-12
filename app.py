@@ -255,7 +255,9 @@ def doctor_details(doctor_id):
     doctor = User.query.get_or_404(doctor_id)
     return render_template("patient/doctor_details.html", doctor=doctor)
 
-
+@app.route("/department/<int:dept_id>")
+def department_details(dept_id):
+    return 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
