@@ -257,7 +257,13 @@ def doctor_details(doctor_id):
 
 @app.route("/department/<int:dept_id>")
 def department_details(dept_id):
-    return 
+    # print(dept_id) checking for dep_id
+    if "user_id" not in session or session["role"] != "patient":
+        return redirect(url_for("login"))
+    dept = Department.query.get_or_404(dept_id)
+    doctors = User.query.filter_by(role="doctor", department_id=dept_id).all()
+    return render_template("patient/department_details.html",dept=dept,doctors=doctors)
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
