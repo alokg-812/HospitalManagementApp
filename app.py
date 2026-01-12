@@ -240,6 +240,14 @@ def activate_patient(patient_id):
 
 @app.route('/doctor_dashboard')
 def doctor_dashboard():
+    if 'user_id' not in session or session['role'] != 'doctor':
+        return redirect(url_for('login'))
+    doctor_id = session['user_id']
+    doctor = User.query.get(doctor_id)
+    appointments = Appointment.query.filter_by(doctor_id=doctor_id, status='Booked').order_by(Appointment.date).all()
+    assigned_patients = db.session.query(User).join(Appointment, Appointment.patient_id == User.id
+                                                    ).filter(Appointment.doctor_id == doctor_id).distinct().all()
+
     return render_template('doctor/doctor_dashboard.html',doctor=doctor,appointments=appointments,assigned_patients=assigned_patients)
 
 
