@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=~~, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+
+    <h2 class="mb-4">Confirm Your Booking</h2>
+
+    <div class="card p-4">
+        <h4>Doctor: Dr. {{ doctor.username }}</h4>
+        <p><strong>Date:</strong> {{ slot.date }}</p>
+        <p><strong>Time:</strong> {{ slot.slot_time }}</p>
+
+        <form action="" method="POST">
+            <button type="submit" class="btn btn-success">Confirm Booking</button>
+            <a href="{{ url_for('check_availability', doctor_id=doctor.id) }}" class="btn btn-secondary ms-2">
+                Cancel
+            </a>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
