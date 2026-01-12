@@ -250,6 +250,11 @@ def doctor_dashboard():
 
     return render_template('doctor/doctor_dashboard.html',doctor=doctor,appointments=appointments,assigned_patients=assigned_patients)
 
+@app.route("/doctor/<int:doctor_id>/details")
+def doctor_details(doctor_id):
+    doctor = User.query.get_or_404(doctor_id)
+    return render_template("patient/doctor_details.html", doctor=doctor)
+
 
 if __name__ == '__main__':
     with app.app_context():
