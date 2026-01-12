@@ -264,6 +264,12 @@ def department_details(dept_id):
     doctors = User.query.filter_by(role="doctor", department_id=dept_id).all()
     return render_template("patient/department_details.html",dept=dept,doctors=doctors)
 
+@app.route("/doctor/<int:doctor_id>/availability")
+def check_availability(doctor_id):
+    doctor = User.query.get_or_404(doctor_id)
+    availability = Availability.query.filter_by(doctor_id=doctor_id).order_by(Availability.date).all()
+    return render_template("patient/book_slot.html",doctor=doctor,availability=availability)
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
