@@ -73,10 +73,64 @@ HOSPITALMANAGEMENTAPP/
 └── 📋 requirements.txt          # Python dependencies
 ```
 
-## Database Models
 
-- **User** → Base model (Admin / Doctor / Patient)
-- **Appointment** → Doctor-Patient booking
-- **PatientHistory** → Stores diagnosis, treatment, prescription details
-- **DoctorAvailability** → Tracks available slots for next 7 days
-- **Department** → Specializations (Cardiology, ENT, etc.)
+## 🚀 Installation & Setup
+
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+
+### Step 1: Clone or Download the Project
+
+```bash
+# If using git
+git clone <repository-url>
+cd hospital-management-system
+
+# OR download and extract the ZIP file
+```
+
+### Step 2: Create Virtual Environment (Recommended)
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+
+# On macOS/Linux:
+source venv/bin/activate
+```
+
+### Step 3: Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4: Create Required Folders
+
+```bash
+# Create utils folder
+mkdir utils
+
+# Create templates folders
+mkdir -p templates/admin templates/doctor templates/patient
+
+# Create static folder
+mkdir -p static/css static/js static/images
+```
+
+### Step 5: Initialize Database
+
+The database will be automatically created when you first run the application. The default admin account will also be created.
+
+### Step 6: Run the Application
+
+```bash
+python app.py
+```
+
+The application will start at `http://127.0.0.1:5000/`
