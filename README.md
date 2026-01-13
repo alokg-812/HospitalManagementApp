@@ -74,24 +74,21 @@ HOSPITALMANAGEMENTAPP/
 ```
 
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 - Python 3.8 or higher
 - pip (Python package manager)
 
 ### Step 1: Clone or Download the Project
-
 ```bash
 # If using git
 git clone <repository-url>
 cd hospital-management-system
-
 # OR download and extract the ZIP file
 ```
 
 ### Step 2: Create Virtual Environment (Recommended)
-
 ```bash
 # Create virtual environment
 python -m venv venv
@@ -134,3 +131,27 @@ python app.py
 ```
 
 The application will start at `http://127.0.0.1:5000/`
+
+
+## 🔐 Default Login Credentials
+
+### Admin Account
+- **Email**: admin@hospital.com
+- **Password**: admin123
+
+### Creating Doctor/Patient Accounts
+- **Patients**: Can self-register through the registration page
+- **Doctors**: Must be added by Admin through the admin panel
+
+## 📊 Database Schema
+
+### Tables
+
+1. **Admin**: Pre-existing superuser account
+2. **Department**: Medical specializations
+3. **Doctor**: Doctor profiles with credentials
+4. **Patient**: Patient profiles with credentials
+5. **Appointment**: Scheduled appointments
+6. **Treatment**: Medical records and prescriptions
+7. **DoctorAvailability**: Doctor schedules for 7 days
+
