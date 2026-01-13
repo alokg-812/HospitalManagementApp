@@ -133,25 +133,28 @@ python app.py
 The application will start at `http://127.0.0.1:5000/`
 
 
-## 🔐 Default Login Credentials
+## Default Login Credentials
 
 ### Admin Account
-- **Email**: admin@hospital.com
-- **Password**: admin123
+- **Email**: admin@local.com
+- **Password**: adminPass
 
 ### Creating Doctor/Patient Accounts
 - **Patients**: Can self-register through the registration page
 - **Doctors**: Must be added by Admin through the admin panel
 
-## 📊 Database Schema
+## Database Schema
 
 ### Tables
+1. `Users:` Stores all system users including Admin, Doctor, and Patient.
+2. `Departments:` Stores medical specializations such as Cardiology, Neurology, Orthopedics, etc.
+3. `Appointments:` Stores scheduled appointments between patients and doctors.
+4. `Treatments:` Stores medical records created after an appointment.
+5. `Medicines:` Stores medicines prescribed in a treatment.
+6. `Availability:` Stores doctor availability slots.
 
-1. **Admin**: Pre-existing superuser account
-2. **Department**: Medical specializations
-3. **Doctor**: Doctor profiles with credentials
-4. **Patient**: Patient profiles with credentials
-5. **Appointment**: Scheduled appointments
-6. **Treatment**: Medical records and prescriptions
-7. **DoctorAvailability**: Doctor schedules for 7 days
-
+### Key Relationships
+- Doctor → Department (Many-to-One)
+- Appointment → Doctor (Many-to-One)
+- Appointment → Patient (Many-to-One)
+- Treatment → Appointment (One-to-One)
