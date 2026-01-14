@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4 w-50">
+    <div class="">
+        <a href="{{ url_for('department_details', dept_id=doctor.id) }}" class="p-2 border-1 rounded-1" style="text-decoration: none; background-color: gray; color: white;">Back</a>
+    </div>
+    <div class="card p-4 mt-3 shadow-sm">
+        <h3>Dr. {{ doctor.username }}</h3>
+        <p><strong>Email:</strong> {{ doctor.email }}</p>
+        <p><strong>Department:</strong> {{ doctor.department.department_name }}</p>
+        <p><strong>Department ID:</strong> {{ doctor.id }}</p>
+        <p><strong>Experience:</strong> {{ doctor.experience_years }}</p>
+        <p><strong>Qualifications:</strong> {{ doctor.qualification }}</p>
+
+    </div>
+</div>
+{% endblock %}
