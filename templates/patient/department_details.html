@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4 ms-5 text-light row">
+    <div class="col-md-8 d-flex justify-content-between">
+        <h2>{{ dept.department_name }}</h2>
+    </div>
+    <div  class="text-end col-md-4 mt-2">
+        <a href="{{ url_for('patient_dashboard') }}" style="text-decoration: none;" class="text-bg-light p-2 border rounded-3">Back</a>
+    </div>
+</div>
+<div class="container mt-4 text-light">
+    <hr>
+    <h4>Overview</h4>
+    <p class="text-muted">{{ dept.description }}</p>
+    <h4 class="mt-4">Doctors' List</h4>
+    <div class="border rounded p-3">
+        {% for doctor in doctors %}
+        <div class="d-flex justify-content-between align-items-center border p-2 mb-2 rounded bg-light text-dark">
+            <span><strong>Dr. {{ doctor.username }}</strong></span>
+            <div>
+                <a href="{{ url_for('check_availability', doctor_id=doctor.id) }}" class="btn btn-sm btn-primary me-2">check availability</a>
+                <a href="{{ url_for('doctor_details', doctor_id=doctor.id) }}" class="btn btn-sm btn-outline-primary">view details</a>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-muted">No doctors in this department yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
