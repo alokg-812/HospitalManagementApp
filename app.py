@@ -285,6 +285,11 @@ def confirm_booking(doctor_id, slot_id):
         return redirect(url_for('booking_success', appointment_id=new_appointment.id))
     return render_template("patient/confirm_booking.html",doctor=doctor,slot=slot,patient=patient)
 
+@app.route('/booking_success/<int:appointment_id>')
+def booking_success(appointment_id):
+    return render_template("patient/booking_success.html",appointment=appointment,doctor=doctor,patient=patient)
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
