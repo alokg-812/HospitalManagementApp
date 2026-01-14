@@ -272,6 +272,17 @@ def check_availability(doctor_id):
 
 @app.route('/confirm_booking/<int:doctor_id>/<int:slot_id>', methods=['GET', 'POST'])
 def confirm_booking(doctor_id, slot_id):
+    if 'user_id' not in session or session['role'] != 'patient':
+        return redirect(url_for('login'))
+    doctor = User.query.get_or_404(doctor_id)
+    slot = Availability.query.get_or_404(slot_id)
+    patient = User.query.get(session['user_id'])
+    if request.method == 'POST':
+        new_appointment = Appointment(doctor_id=doctor.id,patient_id=patient.id,date=slot.date,time=slot.slot_time,status="Booked")
+        db.session.add(new_appointment)
+        slot.is_available = False
+        db.session.commit()
+        return redirect(url_for('booking_success', appointment_id=new_appointment.id))
     return render_template("patient/confirm_booking.html",doctor=doctor,slot=slot,patient=patient)
 
 if __name__ == '__main__':
