@@ -270,6 +270,10 @@ def check_availability(doctor_id):
     availability = Availability.query.filter_by(doctor_id=doctor_id).order_by(Availability.date).all()
     return render_template("patient/book_slot.html",doctor=doctor,availability=availability)
 
+@app.route('/confirm_booking/<int:doctor_id>/<int:slot_id>', methods=['GET', 'POST'])
+def confirm_booking(doctor_id, slot_id):
+    return render_template("patient/confirm_booking.html",doctor=doctor,slot=slot,patient=patient)
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
