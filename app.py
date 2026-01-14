@@ -294,6 +294,14 @@ def booking_success(appointment_id):
     patient = appointment.patient
     return render_template("patient/booking_success.html",appointment=appointment,doctor=doctor,patient=patient)
 
+@app.route('/doctor/mark_complete')
+def mark_complete(appointment_id):
+    if 'user_id' not in session or session['role']!='doctor':
+        return redirect(url_for('login'))
+    appointment = Appointment.query.get_or_404(appointment_id)
+    appointment.status = 'Completed'
+    db.session.commit()
+    return redirect(url_for('doctor_dashboard'))
 
 if __name__ == '__main__':
     with app.app_context():
