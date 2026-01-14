@@ -287,6 +287,11 @@ def confirm_booking(doctor_id, slot_id):
 
 @app.route('/booking_success/<int:appointment_id>')
 def booking_success(appointment_id):
+    if 'user_id' not in session or session['role'] != 'patient':
+        return redirect(url_for('login'))
+    appointment = Appointment.query.get_or_404(appointment_id)
+    doctor = appointment.doctor
+    patient = appointment.patient
     return render_template("patient/booking_success.html",appointment=appointment,doctor=doctor,patient=patient)
 
 
