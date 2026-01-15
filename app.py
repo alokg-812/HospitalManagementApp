@@ -303,6 +303,11 @@ def mark_complete(appointment_id):
     db.session.commit()
     return redirect(url_for('doctor_dashboard'))
 
+@app.route('/doctor/cancel/<int:appointment_id>')
+def cancel_appointment(appointment_id):
+    return redirect(url_for('doctor_dashboard'))
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
