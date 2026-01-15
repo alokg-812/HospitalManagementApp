@@ -305,6 +305,11 @@ def mark_complete(appointment_id):
 
 @app.route('/doctor/cancel/<int:appointment_id>')
 def cancel_appointment(appointment_id):
+    if 'user_id' not in session or session['role']!='doctor':
+        return redirect(url_for('login'))
+    appointment = Appointment.query.get_or_404(appointment_id)
+    appointment.status = 'Cancelled'
+    db.session.commit()
     return redirect(url_for('doctor_dashboard'))
 
 
