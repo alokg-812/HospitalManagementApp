@@ -354,6 +354,28 @@ def patient_history(appointment_id):
     department = Department.query.get(patient.department_id)
     return render_template('doctor/update_patient.html',appointment=appointment,patient=patient,doctor=doctor,department=department)
 
+@app.route('/save_patient_history/<int:appointment_id>', methods=['POST'])
+def save_patient_history(appointment_id):
+    appointment = Appointment.query.get_or_404(appointment_id)
+    visit_type = request.form.get('visit_type')
+    test_done=request.form.get('test_done')
+    diagnosis= request.form.get('diagnosis')
+    prescription =request.form.get('prescription')
+    medicine_names = request.form.getlist('medicine_name[]')
+    medicine_dosages= request.form.getlist('medicine_dosage[]')
+    treatment=Treatment(appointment_id = appointment.id,visit_type = visit_type,test_done = test_done,diagnosis = diagnosis,prescription = prescription)
+    db.session.add(treatment)
+    db.session.flush()
+    
+    for name, dose in zip(medicine_names, medicine_dosages):
+        if name.strip() != "":
+            med = Medicine(name = name,dosage = dose,treatment_id = treatment.id)
+            db.session.add(med)
+    appointment.status = "Completed"
+    db.session.commit()
+    flash("Patient history saved successfully!", "success")
+    return redirect(url_for('doctor_dashboard'))
+
 @app.route('/patient_dashboard')
 def patient_dashboard():
     if 'user_id' not in session:
@@ -364,6 +386,15 @@ def patient_dashboard():
     print(departments)
     print(appointments)
     return render_template('patient/patient_dashboard.html', user=user, departments=departments, appointments=appointments)
+
+@app.route('/patient/cancel/<int:appointment_id>')
+def patient_cancel_appointment(appointment_id):
+    if 'user_id' not in session or session['role']!='patient':
+        return redirect(url_for('login'))
+    appointment = Appointment.query.get_or_404(appointment_id)
+    appointment.status = 'Cancelled'
+    db.session.commit()
+    return redirect(url_for('patient_dashboard'))
 
 if __name__ == '__main__':
     with app.app_context():
