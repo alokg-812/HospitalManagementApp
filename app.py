@@ -316,6 +316,20 @@ def generate_slots():
     slots = ["08:00-08:50","09:00-09:50","10:00-10:50","11:00-11:50","12:00-12:50","13:00-13:50","14:00-14:50","15:00-15:50","16:00-16:50"]
     return slots
 
+@app.route('/doctor/availability')
+def doctor_availability():
+    if 'role' not in session or session['role'] != 'doctor':
+        return redirect(url_for('login'))
+    doctor_id = session['user_id']
+    doctor = User.query.get_or_404(doctor_id)
+    slots = generate_slots()
+    upcoming_days = [(datetime.now() + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(7)]
+    availability = Availability.query.filter_by(doctor_id=doctor_id).all()
+    availability_map = {}
+    for a in availability:
+        availability_map[(a.date, a.slot_time)] = a.is_available
+    return render_template('doctor/doctor_availability.html',slots=slots,doctor=doctor,upcoming_days=upcoming_days,availability_map=availability_map)
+
 @app.route('/patient_dashboard')
 def patient_dashboard():
     if 'user_id' not in session:
