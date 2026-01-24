@@ -396,6 +396,22 @@ def patient_cancel_appointment(appointment_id):
     db.session.commit()
     return redirect(url_for('patient_dashboard'))
 
+@app.route("/patient/edit_profile", methods=["GET", "POST"])
+def edit_profile():
+    if 'user_id' not in session or session.get('role') != 'patient':
+        return redirect(url_for('login'))
+    user = User.query.get(session['user_id'])
+    if request.method == "POST":
+        name = request.form.get("username")
+        email = request.form.get("email")
+        user.username = name
+        user.email = email
+        db.session.commit()
+        session['username'] = user.username
+        session['email'] = user.email
+        return redirect(url_for('patient_dashboard'))
+    return render_template("patient/edit_profile.html", user=user)
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
