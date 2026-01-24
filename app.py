@@ -344,6 +344,16 @@ def save_availability():
     db.session.commit()
     return redirect(url_for('doctor_availability'))
 
+@app.route('/doctor/patient_history/<int:appointment_id>')
+def patient_history(appointment_id):
+    if 'user_id' not in session or session['role'] != 'doctor':
+        return redirect(url_for('login'))
+    appointment = Appointment.query.get_or_404(appointment_id)
+    patient = appointment.patient
+    doctor = appointment.doctor
+    department = Department.query.get(patient.department_id)
+    return render_template('doctor/update_patient.html',appointment=appointment,patient=patient,doctor=doctor,department=department)
+
 @app.route('/patient_dashboard')
 def patient_dashboard():
     if 'user_id' not in session:
