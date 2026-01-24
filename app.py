@@ -330,6 +330,20 @@ def doctor_availability():
         availability_map[(a.date, a.slot_time)] = a.is_available
     return render_template('doctor/doctor_availability.html',slots=slots,doctor=doctor,upcoming_days=upcoming_days,availability_map=availability_map)
 
+@app.route('/doctor/save_availability', methods=["POST"])
+def save_availability():
+    if 'role' not in session or session['role'] != 'doctor':
+        return redirect(url_for('login'))
+    doctor_id = session['user_id']
+    Availability.query.filter_by(doctor_id=doctor_id).delete()
+    db.session.commit()
+    for key in request.form:
+        date, slot = key.split("||")
+        new_avail = Availability(doctor_id=doctor_id,date=date,slot_time=slot,is_available=True)
+        db.session.add(new_avail)
+    db.session.commit()
+    return redirect(url_for('doctor_availability'))
+
 @app.route('/patient_dashboard')
 def patient_dashboard():
     if 'user_id' not in session:
